@@ -1,0 +1,135 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Silkscreen:wght@400;700&family=VT323&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-cyan: #00ffff;
+  --color-magenta: #ff00ff;
+  --color-yellow: #ffff00;
+  --font-pixel: "Press Start 2P", cursive;
+  --font-mono-retro: "VT323", monospace;
+  --font-silkscreen: "Silkscreen", sans-serif;
+}
+
+:root {
+  --bg-dark: #050505;
+  --cyan: #00ffff;
+  --magenta: #ff00ff;
+}
+
+body {
+  background-color: var(--bg-dark);
+  color: var(--cyan);
+  font-family: var(--font-silkscreen);
+  overflow: hidden;
+  image-rendering: pixelated;
+}
+
+/* Scanline Effect */
+body::before {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+  z-index: 1000;
+  background-size: 100% 2px, 3px 100%;
+  pointer-events: none;
+}
+
+/* Static Noise Animation */
+@keyframes noise {
+  0% { transform: translate(0,0) }
+  10% { transform: translate(-5%,-5%) }
+  20% { transform: translate(-10%,5%) }
+  30% { transform: translate(5%,-10%) }
+  40% { transform: translate(-5%,15%) }
+  50% { transform: translate(-10%,5%) }
+  60% { transform: translate(15%,0) }
+  70% { transform: translate(0,10%) }
+  80% { transform: translate(-15%,0) }
+  90% { transform: translate(10%,5%) }
+  100% { transform: translate(5%,0) }
+}
+
+.noise-overlay {
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  right: -50%;
+  bottom: -50%;
+  width: 200%;
+  height: 200%;
+  background: transparent url('http://assets.iceable.com/img/noise-transparent.png') repeat 0 0;
+  background-repeat: repeat;
+  animation: noise .2s infinite;
+  opacity: .05;
+  visibility: visible;
+  z-index: 999;
+  pointer-events: none;
+}
+
+/* Screen Tearing Animation */
+@keyframes tear {
+  0% { clip-path: inset(0 0 0 0); transform: translate(0); }
+  5% { clip-path: inset(10% 0 80% 0); transform: translate(-5px); }
+  10% { clip-path: inset(40% 0 40% 0); transform: translate(5px); }
+  15% { clip-path: inset(80% 0 10% 0); transform: translate(-5px); }
+  20% { clip-path: inset(0 0 0 0); transform: translate(0); }
+}
+
+.screen-tear {
+  animation: tear 4s infinite linear alternate-reverse;
+}
+
+.glitch-border {
+  border: 2px solid var(--cyan);
+  box-shadow: 4px 4px 0 var(--magenta), -4px -4px 0 var(--cyan);
+}
+
+.glitch-text-magenta {
+  text-shadow: 2px 2px 0 var(--cyan), -2px -2px 0 var(--magenta);
+  color: var(--magenta);
+}
+
+.glitch-text-cyan {
+  text-shadow: 2px 2px 0 var(--magenta), -2px -2px 0 var(--cyan);
+  color: var(--cyan);
+}
+
+.pixel-font {
+  font-family: var(--font-pixel);
+  font-size: 0.7rem;
+  line-height: 1.5;
+}
+
+.crt-flicker {
+  animation: flicker 0.15s infinite;
+}
+
+@keyframes flicker {
+  0% { opacity: 0.97; }
+  5% { opacity: 0.95; }
+  10% { opacity: 0.9; }
+  15% { opacity: 0.95; }
+  20% { opacity: 0.98; }
+  25% { opacity: 0.95; }
+  30% { opacity: 0.9; }
+  35% { opacity: 0.95; }
+  40% { opacity: 0.98; }
+  45% { opacity: 0.95; }
+  50% { opacity: 0.9; }
+  55% { opacity: 0.95; }
+  60% { opacity: 0.98; }
+  65% { opacity: 0.95; }
+  70% { opacity: 0.9; }
+  75% { opacity: 0.95; }
+  80% { opacity: 0.98; }
+  85% { opacity: 0.95; }
+  90% { opacity: 0.9; }
+  95% { opacity: 0.95; }
+  100% { opacity: 0.98; }
+}
+
